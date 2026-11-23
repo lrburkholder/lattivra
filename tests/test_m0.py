@@ -2,6 +2,7 @@ from datetime import date, datetime, timezone
 import json
 import os
 from pathlib import Path
+from shutil import copytree
 import subprocess
 import sys
 
@@ -48,8 +49,55 @@ def test_independent_corpus_matches_inventory_without_mutation():
     assert "decisions/shared" in report["bundles"]["beta"]["concept_ids"]
     assert not report["bundles"]["alpha"]["conformant"]
     assert report["bundles"]["beta"]["conformant"]
-    projected = report["bundles"]["alpha"]["documents"]["specifications/projected.md"]
-    assert projected["raw"]["sources"][0]["x-lattivra-revision"] == "synthetic-revision-007"
+
+
+@pytest.mark.contract("VER-01", "FM-06", "META-08")
+def test_fixture_versions_extensions_and_projection_provenance():
+    bundles = run_corpus(FIXTURES / "corpus.json")["bundles"]
+    for bundle_id in ("alpha", "beta"):
+        assert bundles[bundle_id]["metadata"]["okf_version"] == "0.3"
+    unknown = bundles["alpha"]["documents"]["unknown.md"]["metadata"]
+    assert unknown["type"] == "Unregistered Fixture Type"
+    assert unknown["x-top"] == {"enabled": "yes", "truth": True, "version": "0.3"}
+    assert unknown["sources"][0]["x-source"] == "retained"
+    assert unknown["executor"]["x-executor"] == unknown["attester"]["x-attester"] == "retained"
+    for bundle_id, name, requirement in [
+        ("alpha", "projected", "SYNTHETIC-001"),
+        ("beta", "unversioned", "SYNTHETIC-002"),
+    ]:
+        doc = bundles[bundle_id]["documents"][f"specifications/{name}.md"]
+        source = {"id": "authoritative-source", "resource": f"https://fixtures.example/battalion/requirements/{requirement}"}
+        if bundle_id == "alpha":
+            source.update({"x-lattivra-revision": "synthetic-revision-007", "x-fixture-detail": "preserved"})
+        for metadata in (doc["raw"], doc["metadata"]):
+            assert metadata["type"] == "Specification"
+            assert metadata["sources"] == [source]
+            assert metadata["generated"] == {"by": "fixture-exporter/0.1", "at": "2026-06-19T00:00:00Z"}
+
+
+@pytest.mark.contract("PATH-07", "LAT-01", "LAT-02", "LAT-05")
+def test_shared_decision_backlinks_keep_bundle_identity():
+    bundles = run_corpus(FIXTURES / "corpus.json")["bundles"]
+    incoming = {}
+    for bundle in bundles.values():
+        for edge in bundle["edges"]:
+            incoming.setdefault(edge["target"], set()).add((edge["source"], edge["field"]))
+    assert incoming["alpha:decisions/shared"] == {
+        ("alpha:specifications/native", "body"), ("alpha:nested/concept", "body"), ("alpha:unknown", "sources[0].resource")
+    }
+    assert incoming["beta:decisions/shared"] == {
+        ("alpha:specifications/native", "body"), ("beta:specifications/unversioned", "body"), ("beta:decisions/shared", "resource")
+    }
+    assert incoming["alpha:specifications/native"] == {("alpha:decisions/shared", "body"), ("alpha:plans/example", "body")}
+
+
+def test_inventory_detects_uri_mapped_to_wrong_bundle(tmp_path):
+    path = copytree(FIXTURES, tmp_path / "fixtures") / "corpus.json"
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    manifest["mappings"]["https://fixtures.example/unique"][0]["bundle"] = "alpha"
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    failures = run_corpus(path)["expectation_failures"]
+    assert any("https://fixtures.example/unique expected concept=beta:decisions/shared, got alpha:decisions/shared" in f for f in failures)
 
 
 @pytest.mark.contract("FM-01", "FM-03", "FM-05")

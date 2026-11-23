@@ -67,14 +67,19 @@ def run_corpus(manifest: Path) -> dict:
             actual_codes = codes(d for d in bundle.diagnostics if d.file == path)
             if actual_codes != sorted(expectation.get("diagnostics", [])):
                 failures.append(f"{bundle_id}/{path}: diagnostics {actual_codes} differ from inventory")
-            # Include duplicate targets in detailed output, while the inventory checks
-            # the target's observed states independently of Markdown token order.
-            actual_refs = {}
+            expected_refs = expectation.get("references", {})
+            if {ref["target"] for ref in doc.references} != set(expected_refs):
+                failures.append(f"{bundle_id}/{path}: reference inventory differs")
             for ref in doc.references:
-                actual_refs.setdefault(ref["target"], set()).add(ref["state"])
-            expected_refs = {target: {state} for target, state in expectation.get("references", {}).items()}
-            if actual_refs != expected_refs:
-                failures.append(f"{bundle_id}/{path}: reference outcomes differ")
+                target = ref["target"]
+                if target not in expected_refs:
+                    continue
+                outcome = expected_refs[target]
+                if isinstance(outcome, str):
+                    outcome = {"state": outcome}
+                for key, wanted in outcome.items():
+                    if ref.get(key) != wanted:
+                        failures.append(f"{bundle_id}/{path}: {target} expected {key}={wanted}, got {ref.get(key)}")
     if set(bundles) != expected:
         failures.append("registered bundle inventory differs")
     if codes(diagnostics) != sorted(config.get("expected_registration_diagnostics", [])):
