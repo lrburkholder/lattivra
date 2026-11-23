@@ -448,6 +448,42 @@ def test_unknown_yaml_tag_is_a_compatibility_limit(tmp_path):
     assert bundle.conformant
 
 
+@pytest.mark.parametrize("change_source", [False, True])
+def test_manifest_verifies_independently_located_bundle(tmp_path, monkeypatch, change_source):
+    from hashlib import sha256
+    from m0_harness import corpus
+
+    config_dir = tmp_path / "config"
+    config_dir.mkdir()
+    (config_dir / "unrelated.txt").write_bytes(b"outside the fixture inventory")
+    root = tmp_path / "bundle"
+    root.mkdir()
+    source = root / "good.md"
+    original = concept().encode()
+    source.write_bytes(original)
+    manifest = config_dir / "corpus.json"
+    manifest.write_text(json.dumps({
+        "clock": "2026-11-22",
+        "bundles": [{"id": "example", "root": str(root), "expected_conformant": True,
+                     "assets": [], "documents": {"good.md": {"kind": "concept"}}}],
+    }), encoding="utf-8")
+
+    if change_source:
+        def scan_and_edit(*args, **kwargs):
+            result = scan(*args, **kwargs)
+            source.write_bytes(original + b"changed")
+            return result
+        monkeypatch.setattr(corpus, "scan", scan_and_edit)
+
+    report = run_corpus(manifest)
+    assert report["fixture_hashes"] == {
+        manifest.name: sha256(manifest.read_bytes()).hexdigest(),
+        source.as_posix(): sha256(original).hexdigest(),
+    }
+    assert report["sources_unchanged"] == (not change_source)
+    assert report["expectation_failures"] == (["fixture sources changed during the run"] if change_source else [])
+
+
 def test_inventory_mismatch_is_reported_not_rewritten(tmp_path):
     manifest = json.loads((FIXTURES / "corpus.json").read_text(encoding="utf-8"))
     for entry in manifest["bundles"] + manifest["registration_attempts"]:
