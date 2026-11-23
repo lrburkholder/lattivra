@@ -17,7 +17,7 @@ A developer's OKF documents may be distributed among multiple repositories and l
 - EXP-002: Support enabling/disabling configured locations and explicitly registering one or more bundle roots beneath a source directory.
 - EXP-003: Identify the source and relative concept path for each indexed artifact.
 - EXP-004: Never change source files during discovery or indexing.
-- EXP-005: Respect exclusions, filesystem permission boundaries, and the OKF rule excluding dot-prefixed paths.
+- EXP-005: Respect exclusions, filesystem permission boundaries, and the OKF rule excluding dot-prefixed paths. Do not follow symbolic links or filesystem aliases outside the registered bundle root during discovery, indexing, or navigation.
 - EXP-006: Discover valid OKF `.md` concepts, not arbitrary Markdown files lacking `type`.
 
 ## Index, search, and links
@@ -40,11 +40,13 @@ A developer's OKF documents may be distributed among multiple repositories and l
 - EXP-019: Display available provenance, lifecycle, and verification information without elevating it to application authority.
 - EXP-020: Display actionable parsing/validation diagnostics.
 - EXP-021: Allow opening or locating the original file.
+- EXP-022: Apply Engineering Profile checks only when explicitly selected for a bundle or standalone validation run. A matching type name alone does not select the profile; show checks as not applied outside the selected scope.
 
 ## Identity
 
 - Preserve OKF's bundle-relative concept IDs. Maintain an Explorer-local persistent source/bundle registration identity for indexing.
-- By default, exclude an explicitly registered child bundle subtree from its registered parent bundle to avoid double indexing.
+- Reject duplicate and overlapping registered roots in the MVP, comparing resolved filesystem locations. Report both conflicting roots and leave previously accepted registrations unchanged.
+- An unregistered nested `index.md` does not change the containing bundle's boundary or link resolution.
 - Never identify two concepts as equal just because their concept paths or declared upstream provenance match.
 
 # Acceptance Criteria
@@ -55,6 +57,10 @@ A developer's OKF documents may be distributed among multiple repositories and l
 4. Invalid documents remain diagnosable; their presence does not block good documents.
 5. The source files remain unchanged after discovery, indexing, and navigation.
 6. Ordinary OKF content is viewable with no Engineering Profile installed.
+7. The same generic `Decision` document receives no profile diagnostics when checks are not selected; selecting the Engineering Profile applies its required headings without changing the document's OKF conformance result.
+8. Refresh reflects additions, edits, and deletions in search and backlinks. A clean rebuild from the same sources and registration configuration produces equivalent concepts, references, and search results with the same concept identities.
+9. Conflicting registrations produce configuration diagnostics without changing accepted registrations; links into ordinary unregistered subdirectories retain native OKF resolution.
+10. Symbolic links or aliases escaping a bundle root are not traversed, and blocked targets have actionable access diagnostics.
 
 # Non-Goals
 

@@ -16,7 +16,7 @@ The Explorer requires local discovery, metadata and full-text search, indexing a
 - Make **no indexing-engine commitment** until the M0 compatibility proof of concept is complete.
 - Evaluate Open Knowledge Catalog first as a candidate, not as the chosen backend.
 - Compare its observed capabilities and adaptation cost with a small independent indexer and other relevant OKF parsing/indexing components.
-- Keep the index rebuildable; the original Markdown and other producer-owned files remain authoritative.
+- Keep the index rebuildable from unchanged registered source files. Native Markdown may be authoritative; a projection's upstream record may remain authoritative over the projection. The index does not replace either source.
 
 # Rationale
 

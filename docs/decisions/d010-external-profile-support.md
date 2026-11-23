@@ -15,7 +15,7 @@ OKF v0.3 permits producer-defined concept types and extensions without a central
 
 - Do not require an external profile registry, remote profile fetch, automatic schema loading, or execution of arbitrary validation code.
 - Treat unknown artifact types as ordinary OKF concepts. Display their Markdown, native metadata, and unknown extension fields without rejecting them for lack of a profile.
-- Keep generic OKF validation separate from optional known-profile checks. Lattivra's own Engineering Profile may be supported as a static, explicitly enabled optional feature.
+- Keep generic OKF validation separate from optional known-profile checks. Lattivra's own Engineering Profile may be supported as a static optional feature selected explicitly per bundle or standalone validation run, as defined in [D-009](d009-validation-policy.md). Type names alone do not select a profile.
 - Do not interpret untrusted profile content as instructions or grant it authority over local files or actions.
 
 # Rationale

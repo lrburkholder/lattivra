@@ -28,6 +28,8 @@ Lattivra needs interoperable engineering documentation without creating a compet
 
 The following **exact, case-sensitive** `type` strings are defined by this bootstrap profile. Headings shown are required for **profile conformance**, not for basic OKF conformance. Heading order is recommended but not required. Heading text is case-sensitive in the bootstrap checker, if implemented.
 
+Using one of these type names does not by itself claim conformance to this profile. Consumers MUST apply profile checks only when the profile is explicitly selected for a bundle or validation run, and MUST distinguish checks not applied from checks passed. Selection can be supplied in consumer configuration; no additional frontmatter field is required.
+
 | `type` | Required level-1 or level-2 headings | Intended content |
 | --- | --- | --- |
 | `Specification` | Context, Requirements, Acceptance Criteria | Expected behavior, boundaries, measurable acceptance |
@@ -40,6 +42,7 @@ A specification MAY add Non-Goals and Open Questions. A decision SHOULD state it
 
 - Authoritative Markdown artifacts need no external authoritative-source declaration.
 - A producer MAY publish a Markdown projection of another authoritative record. It SHOULD identify the underlying source in a `sources` entry with `resource` and SHOULD pin an exact source revision where one exists.
+- Indexing or displaying a projection does not make it authoritative over its upstream record. Explorer treats the registered projection as an unchanged input and its index as a rebuildable derivative.
 - When an exact revision cannot be expressed by an immutable source URI, a `sources` entry MAY carry `x-lattivra-revision: "<opaque revision>"`.
 - The extension MUST be a nonempty string, scoped to the source entry containing it. Its interpretation belongs to the producer; it is not a checksum, content-verification guarantee, cross-bundle artifact ID, or authorization.
 - The optional source-entry `id: authoritative-source` MAY identify the primary source of a projection; this `id` is a profile convention, not an OKF-defined source role. A producer MUST NOT declare competing primary authoritative sources in one projection.

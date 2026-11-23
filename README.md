@@ -11,7 +11,7 @@ The repository foundation includes the bootstrap Engineering Profile, project sp
 
 The Explorer and compatibility proof of concept are not implemented yet. M0 will establish parsing, indexing, search, and link-resolution behavior using independent fixture bundles. Explorer platform and indexing engine selection remain deferred until compatibility evidence is available.
 
-The Explorer must remain useful without the Engineering Profile; the profile must be usable without the Explorer. Neither component depends on Battalion. Source Markdown remains authoritative, and the planned initial Explorer will read artifacts without modifying them.
+The Explorer must remain useful without the Engineering Profile; the profile must be usable without the Explorer. Neither component depends on Battalion. The planned initial Explorer will read registered source files without modifying them and build disposable indexes. Native Markdown may be authoritative; a Markdown projection may derive from an authoritative upstream record.
 
 ## Documentation
 
