@@ -11,6 +11,8 @@ Establish a verified technical baseline for parsing, indexing, searching, and na
 
 # Tasks
 
+[GitHub Issues](https://github.com/lrburkholder/lattivra/issues) is the operational task tracker. The work packages below describe the technical approach; track assignments, progress, and completion in issues. Keep architecture and reproducible experiment results in Markdown.
+
 1. **Pin upstream contract:** Record the OKF v0.3 normative source, reviewed commit, and expected behavior for discovery, frontmatter, link resolution, lifecycle, and extensions.
 2. **Build two standalone fixture bundles:** Include valid concepts of all three profile types, one native Markdown artifact, and one externally projected artifact with an optional `x-lattivra-revision`.
 3. **Add negative and edge cases:** Duplicate concept paths across bundles, broken links, invalid YAML, missing frontmatter, unknown types and extensions, duplicate keys, relative/root links, outside-root paths, and explicitly overlapping registered bundles.

@@ -18,11 +18,17 @@ license: Apache-2.0
 
 ## Decisions
 
-- [D-001 and D-002: identity, repository, and license](docs/decisions/d001-foundation.md)
-- [D-005: profile foundation](docs/decisions/d005-profile-format.md)
-- [D-006: cross-source identity](docs/decisions/d006-cross-source-identity.md)
-- [D-007: bundle discovery](docs/decisions/d007-bundle-discovery.md)
-- [D-008: initial types](docs/decisions/d008-initial-types.md)
+- [D-001: provisional project name](docs/decisions/d001-foundation.md) — Lattivra as the working umbrella name.
+- [D-002: Apache-2.0 license](docs/decisions/d002-license.md) — licensing for project code, documentation, and profile text.
+- [D-003: defer Explorer platform selection](docs/decisions/d003-explorer-platform.md) — evaluate platforms after compatibility evidence is available.
+- [D-004: defer indexing engine selection](docs/decisions/d004-indexing-engine.md) — evaluate candidates through the M0 proof of concept.
+- [D-005: minimal Markdown-first Engineering Profile](docs/decisions/d005-profile-format.md) — build on native OKF conventions.
+- [D-006: cross-source identity](docs/decisions/d006-cross-source-identity.md) — bundle-scoped identity and explicit cross-source mappings.
+- [D-007: bundle discovery](docs/decisions/d007-bundle-discovery.md) — explicit bundle roots under configured sources.
+- [D-008: initial types](docs/decisions/d008-initial-types.md) — Specification, Decision, and Implementation Plan.
+- [D-009: validation policy](docs/decisions/d009-validation-policy.md) — separate OKF conformance, profile conformance, and link diagnostics.
+- [D-010: defer dynamic external profile loading](docs/decisions/d010-external-profile-support.md) — keep third-party profile loading outside the MVP.
+- [D-011: repository organization](docs/decisions/d011-repository-organization.md) — one monorepo with independently usable components.
 
 ## Plans
 
