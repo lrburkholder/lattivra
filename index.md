@@ -38,3 +38,4 @@ license: Apache-2.0
 
 - [Pinned OKF v0.3 contract and conformance checklist](docs/compatibility/okf-v0.3-conformance.md) — baseline revision, expected behavior, and unresolved interpretations for M0.
 - [M0 fixture harness and continuous verification](docs/compatibility/m0-harness.md) — commands, expected fixture outcomes, CI reports, and remaining coverage gaps.
+- [Open Knowledge Catalog evaluation](docs/compatibility/open-knowledge-catalog.md) — observed multi-bundle search, navigation, refresh and rebuild results for v0.1.0.

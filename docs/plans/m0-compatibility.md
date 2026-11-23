@@ -7,7 +7,7 @@ tags: [m0, proof-of-concept, validation]
 
 # Objective
 
-Establish a verified technical baseline for parsing, indexing, searching, and navigating OKF v0.3 artifacts across separate bundles. Select a backend only after evidence from the fixture corpus. Do not start Explorer UI implementation before the POC.
+Establish a verified technical baseline for parsing, indexing, searching, and navigating OKF v0.3 artifacts across separate bundles. Explorer is deferred. The backend comparison and platform decisions in tasks 6–7 are on hold until Explorer resumes. [Deferral note on issue #5](https://github.com/lrburkholder/lattivra/issues/5#issuecomment-7107109904)
 
 # Tasks
 
@@ -17,7 +17,7 @@ Establish a verified technical baseline for parsing, indexing, searching, and na
 2. **Build two standalone fixture bundles:** Include valid concepts of all three profile types, one native Markdown artifact, and one externally projected artifact with an optional `x-lattivra-revision`.
 3. **Add negative and edge cases:** Duplicate concept paths across bundles, broken links, invalid YAML, missing frontmatter, unknown types and extensions, duplicate keys, relative/root links, outside-root paths, symbolic links escaping the bundle, optional metadata variations, and rejected duplicate/overlapping registrations under [D-007](../decisions/d007-bundle-discovery.md). Include an unregistered nested `index.md` and a generic `Decision` document lacking profile headings to test native discovery and explicit profile selection.
 4. **Validate artifacts:** Apply [D-009](../decisions/d009-validation-policy.md): separate OKF conformance, explicitly selected profile conformance, version-compatibility warnings, reference diagnostics, and configuration/access diagnostics. Run profile checks both selected and not selected. An unknown `type` must remain valid OKF. Dynamic third-party profile loading is deferred under [D-010](../decisions/d010-external-profile-support.md).
-5. **Evaluate Open Knowledge Catalog:** Test v0.3 parsing, source scanning, search, backlinks, path semantics, unknown fields, robustness, incremental refresh, and clean rebuilds. Add, edit, and delete fixture artifacts between read-only runs, then compare refreshed and rebuilt results using the same registration configuration. Document gaps, patches, maintenance risk, and license.
+5. **Evaluate Open Knowledge Catalog:** Test v0.3 parsing, source scanning, search, backlinks, path semantics, unknown fields, robustness, incremental refresh, and clean rebuilds. Add, edit, and delete fixture artifacts between read-only runs, then compare refreshed and rebuilt results using the same registration configuration. Document gaps, patches, maintenance risk, and license. See the [v0.1.0 evaluation and reproduction commands](../compatibility/open-knowledge-catalog.md).
 6. **Evaluate minimal alternatives:** Compare a small independent indexer and relevant existing OKF parsers against the observed gaps, not against assumptions.
 7. **Record decisions:** Revisit [D-004](../decisions/d004-indexing-engine.md) after the POC results are available; revisit [D-003](../decisions/d003-explorer-platform.md) when compatibility evidence and learning objectives can inform platform selection.
 
