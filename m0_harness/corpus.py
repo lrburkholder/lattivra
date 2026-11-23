@@ -25,19 +25,33 @@ def snapshot(root: Path) -> dict[str, str]:
     return result
 
 
+def fixture_hashes(manifest: Path, contents: bytes, roots: list[Path]) -> dict[str, str]:
+    hashes = {manifest.name: sha256(contents).hexdigest()}
+    for root in roots:
+        if not root.is_dir():
+            continue  # Registration reports missing roots separately.
+        for name, digest in snapshot(root).items():
+            path = root / name
+            key = path.relative_to(manifest.parent) if path.is_relative_to(manifest.parent) else path
+            hashes[key.as_posix()] = digest
+    return hashes
+
+
 def codes(diagnostics):
     return sorted(f"{d.category}:{d.code}" for d in diagnostics)
 
 
 def run_corpus(manifest: Path) -> dict:
     manifest = manifest.resolve()
-    before = snapshot(manifest.parent)
-    config = json.loads(manifest.read_text(encoding="utf-8"))
+    manifest_bytes = manifest.read_bytes()
+    config = json.loads(manifest_bytes.decode("utf-8"))
     now = timestamp(config["clock"])
     if now is None:
         raise ValueError("manifest clock must be an RFC 3339 date or offset date-time")
     registrations = [Registration(e["id"], manifest.parent / e["root"], e.get("profile", False), e.get("legacy_paths", False))
                      for e in config["bundles"] + config.get("registration_attempts", [])]
+    fixture_roots = [manifest.parent / entry["root"] for entry in config["bundles"]]
+    before = fixture_hashes(manifest, manifest_bytes, fixture_roots)
     bundles, diagnostics = scan(registrations, now=now, mappings=config.get("mappings"))
     failures = []
     expected = set()
@@ -84,7 +98,7 @@ def run_corpus(manifest: Path) -> dict:
         failures.append("registered bundle inventory differs")
     if codes(diagnostics) != sorted(config.get("expected_registration_diagnostics", [])):
         failures.append("registration diagnostics differ")
-    after = snapshot(manifest.parent)
+    after = fixture_hashes(manifest, manifest.read_bytes(), fixture_roots)
     if before != after:
         failures.append("fixture sources changed during the run")
     try:
