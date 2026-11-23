@@ -33,3 +33,8 @@ license: Apache-2.0
 ## Plans
 
 - [M0 compatibility proof of concept](docs/plans/m0-compatibility.md)
+
+## Compatibility
+
+- [Pinned OKF v0.3 contract and conformance checklist](docs/compatibility/okf-v0.3-conformance.md) — baseline revision, expected behavior, and unresolved interpretations for M0.
+- [M0 fixture harness and continuous verification](docs/compatibility/m0-harness.md) — commands, expected fixture outcomes, CI reports, and remaining coverage gaps.
