@@ -6,7 +6,7 @@ status: draft
 tags: [engineering-profile, interoperability, specification]
 sources:
   - id: okf-v03
-    resource: https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md
+    resource: https://github.com/open-knowledge-format/open-knowledge-format/blob/527e81aff55992be21507e97004286789126f88c/SPEC.md
     title: Open Knowledge Format v0.3 specification
 ---
 
@@ -74,6 +74,6 @@ No required LinkML, RDF, SHACL, custom JSON Schema, graph database, approval eng
 
 # References
 
-- [OKF v0.3](https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md)
+- [OKF v0.3](https://github.com/open-knowledge-format/open-knowledge-format/blob/527e81aff55992be21507e97004286789126f88c/SPEC.md)
 - [D-005 profile decision](../../docs/decisions/d005-profile-format.md)
 - [D-008 types decision](../../docs/decisions/d008-initial-types.md)

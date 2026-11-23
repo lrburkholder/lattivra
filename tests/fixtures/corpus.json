@@ -1,0 +1,61 @@
+{
+  "clock": "2026-11-22T00:00:00Z",
+  "bundles": [
+    {
+      "id": "alpha", "root": ".bundles/alpha", "profile": true,
+      "expected_conformant": false,
+      "assets": ["asset.txt"],
+      "documents": {
+        "index.md": {"kind": "reserved"},
+        "log.md": {"kind": "reserved"},
+        "README.md": {"kind": "skipped", "diagnostics": ["discovery:NON_CONCEPT"]},
+        "no-type.md": {"kind": "skipped", "diagnostics": ["discovery:NON_CONCEPT"]},
+        "specifications/native.md": {
+          "kind": "concept", "profile": "passed",
+          "diagnostics": ["reference:UNRESOLVED", "reference:AMBIGUOUS"],
+          "references": {
+            "../decisions/shared.md#decision": "concept", "/decisions/shared.md": "concept",
+            "../plans/example.md": "concept", "missing.md": "unresolved",
+            "https://fixtures.example/unique": "mapped", "https://fixtures.example/ambiguous": "ambiguous"
+          }
+        },
+        "specifications/projected.md": {
+          "kind": "concept", "profile": "passed",
+          "references": {"https://fixtures.example/battalion/requirements/SYNTHETIC-001": "external"}
+        },
+        "decisions/shared.md": {"kind": "concept", "profile": "passed", "references": {"../specifications/native.md": "concept"}},
+        "plans/example.md": {"kind": "concept", "profile": "passed", "references": {"../specifications/native.md": "concept"}},
+        "generic.md": {"kind": "concept", "profile": "failed", "diagnostics": ["profile:MISSING_HEADING", "profile:MISSING_HEADING", "profile:MISSING_HEADING", "profile:MISSING_HEADING"]},
+        "unknown.md": {
+          "kind": "concept",
+          "references": {"/decisions/shared.md": "concept", "/asset.txt": "asset"}
+        },
+        "invalid/yaml.md": {"kind": "invalid", "diagnostics": ["format:INVALID_YAML"]},
+        "invalid/duplicate.md": {"kind": "invalid", "diagnostics": ["format:DUPLICATE_KEY"]},
+        "invalid/sequence.md": {"kind": "invalid", "diagnostics": ["format:FRONTMATTER_NOT_MAPPING"]},
+        "nested/index.md": {"kind": "reserved"},
+        "nested/concept.md": {"kind": "concept", "references": {"/decisions/shared.md": "concept"}}
+      }
+    },
+    {
+      "id": "beta", "root": ".bundles/beta", "expected_conformant": true, "assets": [],
+      "documents": {
+        "index.md": {"kind": "reserved"},
+        "decisions/shared.md": {"kind": "concept", "references": {"https://fixtures.example/unique": "mapped"}}
+      }
+    },
+    {
+      "id": "unsupported", "root": ".bundles/unsupported", "expected_conformant": true, "assets": [],
+      "documents": {"index.md": {"kind": "reserved", "diagnostics": ["compatibility:UNSUPPORTED_VERSION"]}, "concept.md": {"kind": "concept"}}
+    }
+  ],
+  "registration_attempts": [
+    {"id": "overlap", "root": ".bundles/alpha/nested"},
+    {"id": "duplicate", "root": ".bundles/beta"}
+  ],
+  "expected_registration_diagnostics": ["configuration:REGISTRATION_CONFLICT", "configuration:REGISTRATION_CONFLICT"],
+  "mappings": {
+    "https://fixtures.example/unique": [{"bundle": "beta", "concept": "decisions/shared"}],
+    "https://fixtures.example/ambiguous": [{"bundle": "alpha", "concept": "decisions/shared"}, {"bundle": "beta", "concept": "decisions/shared"}]
+  }
+}

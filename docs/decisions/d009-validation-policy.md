@@ -38,4 +38,5 @@ Separate diagnostic layers preserve native OKF semantics, allow third-party arti
 - [Engineering Profile](../../profiles/engineering/profile.md)
 - [Explorer specification](../specifications/explorer.md)
 - [M0 compatibility plan](../plans/m0-compatibility.md)
-- [OKF v0.3 specification](https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md)
+- [OKF v0.3 specification](https://github.com/open-knowledge-format/open-knowledge-format/blob/527e81aff55992be21507e97004286789126f88c/SPEC.md)
+- [Pinned contract and conformance checklist](../compatibility/okf-v0.3-conformance.md)

@@ -9,7 +9,7 @@ Lattivra is an experimental, local-first, open-source project for exploring Open
 
 The repository foundation includes the bootstrap Engineering Profile, project specifications, decision records D-001 through D-011, and the M0 compatibility plan. These documents form an OKF v0.3 bundle and use the profile to document Lattivra itself.
 
-The Explorer and compatibility proof of concept are not implemented yet. M0 will establish parsing, indexing, search, and link-resolution behavior using independent fixture bundles. Explorer platform and indexing engine selection remain deferred until compatibility evidence is available.
+M0 now includes synthetic independent fixture bundles and a read-only parsing/conformance harness, with local commands and GitHub Actions checks. Indexing, search, and candidate-tool evaluations remain upcoming. Explorer platform and indexing engine selection remain deferred until compatibility evidence is available.
 
 The Explorer must remain useful without the Engineering Profile; the profile must be usable without the Explorer. Neither component depends on Battalion. The planned initial Explorer will read registered source files without modifying them and build disposable indexes. Native Markdown may be authoritative; a Markdown projection may derive from an authoritative upstream record.
 
@@ -20,6 +20,8 @@ The Explorer must remain useful without the Engineering Profile; the profile mus
 - Review the [Explorer requirements](docs/specifications/explorer.md) and [foundation and interoperability requirements](docs/specifications/foundation.md).
 - Browse all [11 decision records](index.md#decisions).
 - Read the [M0 compatibility plan](docs/plans/m0-compatibility.md) for the technical approach and verification criteria.
+- Use the [pinned OKF v0.3 contract and conformance checklist](docs/compatibility/okf-v0.3-conformance.md) for fixture expectations and tool evaluation.
+- Run the [M0 fixture harness](docs/compatibility/m0-harness.md) locally and review its CI reports, coverage limits, and reproduction commands.
 
 ## Work tracking
 
@@ -27,9 +29,9 @@ The Explorer must remain useful without the Engineering Profile; the profile mus
 
 ## Standards baseline
 
-The format baseline is [OKF v0.3](https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md).
+The format baseline is [OKF v0.3 at upstream commit `527e81a`](https://github.com/open-knowledge-format/open-knowledge-format/blob/527e81aff55992be21507e97004286789126f88c/SPEC.md).
 
-Normative reference reviewed at upstream Git blob `0dc3f7aa0fc710e588ba918eb115935d41eb2943` on 2026-11-22. The profile remains experimental and may evolve before its first stable release.
+Normative reference reviewed on 2026-11-22: commit `527e81aff55992be21507e97004286789126f88c`, `SPEC.md` Git blob `0dc3f7aa0fc710e588ba918eb115935d41eb2943`. See the [conformance checklist](docs/compatibility/okf-v0.3-conformance.md) for the contract, optional behavior, and unresolved interpretations. The profile remains experimental and may evolve before its first stable release.
 
 ## Licensing
 
