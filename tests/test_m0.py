@@ -114,6 +114,20 @@ def test_profile_is_explicit_and_independent_of_format(tmp_path):
     assert len(diagnostic_codes(selected, "profile")) == 4
 
 
+@pytest.mark.contract("RES-06")
+@pytest.mark.parametrize("newline", ["\n", "\r\n"], ids=["lf", "crlf"])
+@pytest.mark.parametrize("heading,valid", [("2026-11-22", True), ("2026-02-30", False), ("yesterday", False)])
+def test_log_dates_use_logical_lines_without_rewriting_source(tmp_path, newline, heading, valid):
+    text = newline.join(["# Log", "", f"## {heading}", "", "- Entry", ""])
+    content = text.encode("utf-8")
+    bundle = read(tmp_path, {"log.md": content, "neighbor.md": concept()})
+    assert bundle.conformant is valid
+    assert diagnostic_codes(bundle, "format") == ([] if valid else ["INVALID_LOG_DATE"])
+    assert "neighbor" in bundle.concepts
+    assert bundle.documents["log.md"].body == text
+    assert (tmp_path / "bundle" / "log.md").read_bytes() == content
+
+
 @pytest.mark.contract("LAT-04")
 @pytest.mark.parametrize("metadata,code", [
     ("status: accepted", "INVALID_STATUS"),

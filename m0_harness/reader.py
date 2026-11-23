@@ -247,7 +247,7 @@ def read_document(bundle: Bundle, path: str, text: str, profile: bool, now: date
             if name == "log.md" or path != "index.md":
                 add("format", "RESERVED_FRONTMATTER")
         if name == "log.md":
-            dates = re.findall(r"^## (.+)$", body, re.M)
+            dates = [line[3:] for line in body.splitlines() if line.startswith("## ")]
             if any(not re.fullmatch(r"\d{4}-\d{2}-\d{2}", d) or timestamp(d) is None for d in dates):
                 add("format", "INVALID_LOG_DATE")
             elif dates != sorted(dates, reverse=True):
