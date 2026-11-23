@@ -14,34 +14,44 @@
           "kind": "concept", "profile": "passed",
           "diagnostics": ["reference:UNRESOLVED", "reference:AMBIGUOUS"],
           "references": {
-            "../decisions/shared.md#decision": "concept", "/decisions/shared.md": "concept",
-            "../plans/example.md": "concept", "missing.md": "unresolved",
-            "https://fixtures.example/unique": "mapped", "https://fixtures.example/ambiguous": "ambiguous"
+            "../decisions/shared.md#decision": {"state": "concept", "concept": "alpha:decisions/shared"},
+            "/decisions/shared.md": {"state": "concept", "concept": "alpha:decisions/shared"},
+            "../plans/example.md": {"state": "concept", "concept": "alpha:plans/example"},
+            "missing.md": "unresolved",
+            "https://fixtures.example/unique": {"state": "mapped", "concept": "beta:decisions/shared"},
+            "https://fixtures.example/ambiguous": "ambiguous"
           }
         },
         "specifications/projected.md": {
           "kind": "concept", "profile": "passed",
           "references": {"https://fixtures.example/battalion/requirements/SYNTHETIC-001": "external"}
         },
-        "decisions/shared.md": {"kind": "concept", "profile": "passed", "references": {"../specifications/native.md": "concept"}},
-        "plans/example.md": {"kind": "concept", "profile": "passed", "references": {"../specifications/native.md": "concept"}},
+        "decisions/shared.md": {"kind": "concept", "profile": "passed", "references": {"../specifications/native.md": {"state": "concept", "concept": "alpha:specifications/native"}}},
+        "plans/example.md": {"kind": "concept", "profile": "passed", "references": {"../specifications/native.md": {"state": "concept", "concept": "alpha:specifications/native"}}},
         "generic.md": {"kind": "concept", "profile": "failed", "diagnostics": ["profile:MISSING_HEADING", "profile:MISSING_HEADING", "profile:MISSING_HEADING", "profile:MISSING_HEADING"]},
         "unknown.md": {
           "kind": "concept",
-          "references": {"/decisions/shared.md": "concept", "/asset.txt": "asset"}
+          "references": {"/decisions/shared.md": {"state": "concept", "concept": "alpha:decisions/shared"}, "/asset.txt": "asset"}
         },
         "invalid/yaml.md": {"kind": "invalid", "diagnostics": ["format:INVALID_YAML"]},
         "invalid/duplicate.md": {"kind": "invalid", "diagnostics": ["format:DUPLICATE_KEY"]},
         "invalid/sequence.md": {"kind": "invalid", "diagnostics": ["format:FRONTMATTER_NOT_MAPPING"]},
         "nested/index.md": {"kind": "reserved"},
-        "nested/concept.md": {"kind": "concept", "references": {"/decisions/shared.md": "concept"}}
+        "nested/concept.md": {"kind": "concept", "references": {"/decisions/shared.md": {"state": "concept", "concept": "alpha:decisions/shared"}}}
       }
     },
     {
       "id": "beta", "root": ".bundles/beta", "expected_conformant": true, "assets": [],
       "documents": {
         "index.md": {"kind": "reserved"},
-        "decisions/shared.md": {"kind": "concept", "references": {"https://fixtures.example/unique": "mapped"}}
+        "decisions/shared.md": {"kind": "concept", "references": {"https://fixtures.example/unique": {"state": "mapped", "concept": "beta:decisions/shared"}}},
+        "specifications/unversioned.md": {
+          "kind": "concept",
+          "references": {
+            "/decisions/shared.md": {"state": "concept", "concept": "beta:decisions/shared"},
+            "https://fixtures.example/battalion/requirements/SYNTHETIC-002": "external"
+          }
+        }
       }
     },
     {
