@@ -20,7 +20,7 @@ license: Apache-2.0
 
 - [D-001: provisional project name](docs/decisions/d001-foundation.md) — Lattivra as the working umbrella name.
 - [D-002: Apache-2.0 license](docs/decisions/d002-license.md) — licensing for project code, documentation, and profile text.
-- [D-003: defer Explorer platform selection](docs/decisions/d003-explorer-platform.md) — evaluate platforms after compatibility evidence is available.
+- [D-003: defer Explorer platform selection](docs/decisions/d003-explorer-platform.md) — defer standalone UI work until Battalion can support creating it; platform choice remains open.
 - [D-004: defer indexing engine selection](docs/decisions/d004-indexing-engine.md) — evaluate candidates through the M0 proof of concept.
 - [D-005: minimal Markdown-first Engineering Profile](docs/decisions/d005-profile-format.md) — build on native OKF conventions.
 - [D-006: cross-source identity](docs/decisions/d006-cross-source-identity.md) — bundle-scoped identity and explicit cross-source mappings.

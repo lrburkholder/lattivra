@@ -13,7 +13,7 @@ Lattivra Explorer must be local-first, support explicit access to multiple files
 
 **Decision ID:** D-003. **Approval:** accepted decision to defer selection.
 
-Do not select a desktop or web platform during the documentation bootstrap. Evaluate at least:
+Defer selection **and implementation of the standalone Explorer UI** until Battalion has sufficient capability to support creating that UI. M0 does not require an Explorer UI or evaluation of UI frameworks and editors. When the capability gate is met, evaluate at least:
 
 - A native-packaged desktop application, potentially using Tauri.
 - A locally hosted web interface with a local backend.
@@ -23,17 +23,20 @@ This deferral is not an endorsement of Tauri, React, Rust, or any other implemen
 
 # Rationale
 
-Prematurely choosing a UI/runtime stack risks optimizing for familiarity or novelty before validating actual filesystem, indexing, distribution, and learning requirements.
+Prematurely choosing a UI/runtime stack risks optimizing for familiarity or novelty before validating actual filesystem, indexing, distribution, and learning requirements. The Engineering Profile and OKF compatibility work are useful independently of a standalone UI; Battalion can produce and consume conforming documents without waiting for one.
 
 # Consequences
 
-- M0 should focus on portable parsing and indexing contracts rather than an Explorer UI.
+- M0 focuses on format conformance, portable parsing, and the evidence-based indexing evaluation; standalone UI evaluation and implementation are not M0 exit requirements.
+- Battalion is an anticipated producer and consumer of profiled artifacts, but neither Lattivra format conformance nor its tooling depends on Battalion.
 - Any proof-of-concept interface must be disposable and must not establish an accidental technology commitment.
 - Preserve a replaceable application/indexer boundary so platform and indexing selections can be made independently.
 
 # Revisit Trigger
 
-After the M0 compatibility proof of concept documents backend constraints and the maintainer's learning objectives are explicit, compare alternatives for filesystem access, security, packaging, testability, cross-platform maintenance, offline operation, and portfolio learning value. Record a new explicit platform selection or an amendment to this decision before production Explorer UI implementation.
+Revisit UI platform selection **only once Battalion can support creating the Explorer UI** and the maintainer elects to resume that work. Then compare alternatives for filesystem access, security, packaging, testability, cross-platform maintenance, offline operation, and portfolio learning value. M0 backend findings may inform that evaluation but do not themselves trigger UI development. Record a new explicit platform selection or amendment before production Explorer UI implementation.
+
+The Atteniv evaluation was removed from M0 scope ([issue #6](https://github.com/lrburkholder/lattivra/issues/6), closed as not planned). This defers that evaluation; it does not choose or prohibit a future UI framework.
 
 # References
 
