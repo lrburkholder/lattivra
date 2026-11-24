@@ -7,7 +7,9 @@ tags: [m0, proof-of-concept, validation]
 
 # Objective
 
-Establish a verified technical baseline for reading and validating OKF v0.3 across separate bundles, and evaluate candidate indexing/search capabilities through reproducible fixture evidence. Record a backend recommendation without forcing selection when evidence is insufficient. **A standalone Explorer UI and its framework evaluation are outside M0** under [D-003](../decisions/d003-explorer-platform.md). The Engineering Profile is independently useful, including as a format Battalion can produce or consume.
+Establish a verified baseline for reading and validating OKF v0.3 across separate bundles. The Engineering Profile and compatibility tooling can support Battalion as a producer or consumer independently of Explorer.
+
+Explorer development, framework evaluation, and backend selection are deferred. M0 records the observed indexing and search behavior for use if Explorer resumes. [D-003](../decisions/d003-explorer-platform.md) · [OKC findings and deferral on issue #5](https://github.com/lrburkholder/lattivra/issues/5#issuecomment-7107109904)
 
 # Tasks
 
@@ -17,8 +19,8 @@ Establish a verified technical baseline for reading and validating OKF v0.3 acro
 2. **Build two standalone fixture bundles:** Include valid concepts of all three profile types, one native Markdown artifact, and one externally projected artifact with an optional `x-lattivra-revision`.
 3. **Add negative and edge cases:** Duplicate concept paths across bundles, broken links, invalid YAML, missing frontmatter, unknown types and extensions, duplicate keys, relative/root links, outside-root paths, symbolic links escaping the bundle, optional metadata variations, and rejected duplicate/overlapping registrations under [D-007](../decisions/d007-bundle-discovery.md). Include an unregistered nested `index.md` and a generic `Decision` document lacking profile headings to test native discovery and explicit profile selection.
 4. **Validate artifacts:** Apply [D-009](../decisions/d009-validation-policy.md): separate OKF conformance, explicitly selected profile conformance, version-compatibility warnings, reference diagnostics, and configuration/access diagnostics. Run profile checks both selected and not selected. An unknown `type` must remain valid OKF. Dynamic third-party profile loading is deferred under [D-010](../decisions/d010-external-profile-support.md).
-5. **Evaluate Open Knowledge Catalog:** Test v0.3 parsing, source scanning, search, backlinks, path semantics, unknown fields, robustness, incremental refresh, and clean rebuilds. Add, edit, and delete fixture artifacts between read-only runs, then compare refreshed and rebuilt results using the same registration configuration. Document gaps, patches, maintenance risk, and license.
-6. **Evaluate minimal alternatives:** Compare a small independent indexer and relevant existing OKF parsers against the observed gaps, not against assumptions.
+5. **Evaluate Open Knowledge Catalog:** Test v0.3 parsing, source scanning, search, backlinks, path semantics, unknown fields, robustness, incremental refresh, and clean rebuilds. Add, edit, and delete fixture artifacts between read-only runs, then compare refreshed and rebuilt results using the same registration configuration. Document gaps, patches, maintenance risk, and license. See the [v0.1.0 evaluation and reproduction commands](../compatibility/open-knowledge-catalog.md).
+6. **Evaluate minimal alternatives (deferred):** If Explorer resumes, compare a small independent indexer and relevant existing OKF parsers against the observed gaps.
 7. **Record findings and decisions:** Update [D-004](../decisions/d004-indexing-engine.md) with the indexing POC evidence, whether the result is reuse, adaptation, replacement, or continued deferral. Preserve [D-003](../decisions/d003-explorer-platform.md)'s UI/platform deferral until Battalion can support building the UI. Summarize how the Engineering Profile and compatibility tooling can be used independently, including future Battalion producer/consumer interoperability; no Battalion runtime integration is required in M0.
 
 ## Scope boundary
