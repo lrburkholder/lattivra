@@ -55,7 +55,7 @@ The current tests exercise discovery, frontmatter parsing, reserved-file boundar
 
 Unresolved cases retain the contract's U-01 through U-08 labels. For U-01 the harness provisionally skips null/empty `type` values as absent, and reports other malformed types as unresolved; this is local policy rather than a universal conformance ruling. Unknown custom YAML tags and recursive aliases are unsupported compatibility cases, and missing generation timestamps do not produce an invented human-reviewed tier. Source scope descriptors use a provisional whitespace heuristic; ambiguous unencoded paths need policy review. In-root filesystem aliases are skipped with a compatibility diagnostic rather than traversed. The timestamp parser uses Python's date-time support and does not implement RFC 3339 leap seconds. These limits must not be reported as full OKF consumer conformance.
 
-Candidate backend evaluation, persistent indexing, search, incremental refresh/rebuild, and Explorer UI remain subsequent M0 work. The harness makes no claim that those capabilities have been tested.
+The separate [Open Knowledge Catalog evaluation](open-knowledge-catalog.md) exercised search, backlinks, refresh, and rebuild on the same fixtures. The [M0 findings](m0-findings.md) summarize both experiments and the follow-on scope.
 
 ## GitHub Actions
 

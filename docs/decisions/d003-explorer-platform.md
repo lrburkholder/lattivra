@@ -27,6 +27,7 @@ Prematurely choosing a UI/runtime stack risks optimizing for familiarity or nove
 
 # Consequences
 
+- The M0 closeout keeps this deferral in force. The next milestone tests an exchange of Markdown files with Battalion using the existing reader. That exchange can proceed independently of a presentation platform. [M0 findings and follow-on scope](../compatibility/m0-findings.md)
 - M0 focuses on format conformance, portable parsing, and the evidence-based indexing evaluation; standalone UI evaluation and implementation are not M0 exit requirements.
 - Battalion is an anticipated producer and consumer of profiled artifacts, but neither Lattivra format conformance nor its tooling depends on Battalion.
 - Any proof-of-concept interface must be disposable and must not establish an accidental technology commitment.

@@ -70,4 +70,6 @@ Record each fixture's expected and actual result independently for OKF conforman
 
 # Exit Criteria
 
+The [M0 findings](../compatibility/m0-findings.md) record the observed results against these criteria, the indexing recommendation, and the proposed M1 exchange with Battalion.
+
 A repeatable POC reads two independent OKF v0.3 fixture bundles without modifying source files and reports actual format, profile, reference, and registration outcomes. Candidate-indexer evaluation records observed search, refresh, rebuild, and backlink capabilities (including unsupported features), tested revisions, and reproducible commands. M0 publishes the recommendation or a reasoned continued deferral in D-004, records remaining gaps, and identifies follow-on format/Battalion interoperability work. **No standalone UI, Atteniv evaluation, or final platform selection is required to exit M0.**
