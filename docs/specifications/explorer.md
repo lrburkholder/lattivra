@@ -7,7 +7,9 @@ tags: [explorer, mvp, requirements]
 
 # Context
 
-A developer's OKF documents may be distributed among multiple repositories and local directories. A general-purpose local-first browser should make those documents searchable, navigable, and inspectable without moving or editing them. The Engineering Profile is optional.
+A developer's OKF documents may be distributed among multiple repositories and local directories. A general-purpose local-first browser should eventually make those documents searchable, navigable, and inspectable without moving or editing them. The Engineering Profile is optional.
+
+This specification defines **future Explorer functionality**, not an M0 delivery requirement. Standalone UI implementation and platform evaluation are deferred under [D-003](../decisions/d003-explorer-platform.md) until Battalion can support creating that UI. The Engineering Profile and OKF compatibility tooling remain useful independently of the Explorer.
 
 # Requirements
 
@@ -64,7 +66,7 @@ A developer's OKF documents may be distributed among multiple repositories and l
 
 # Non-Goals
 
-No editing, remote sources, cloud sync, MCP integration, execution engine, or mandatory graph visualization in the initial release.
+No editing, remote sources, cloud sync, MCP integration, execution engine, or mandatory graph visualization in the initial release. No standalone UI implementation or UI framework evaluation during M0.
 
 # Related Plans
 

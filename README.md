@@ -1,17 +1,17 @@
 # Lattivra
 
-Lattivra is an experimental, local-first, open-source project for exploring Open Knowledge Format (OKF) artifacts across independent sources. It is a personal portfolio and engineering learning project with two independently usable components:
+Lattivra is an experimental, local-first, open-source project centered on portable Open Knowledge Format (OKF) engineering artifacts and their exploration across independent sources. It is a personal portfolio and engineering learning project with two independently usable components:
 
-- **Lattivra Explorer** — a planned read-only browser for discovering, searching, and navigating ordinary OKF artifacts across multiple local bundles.
+- **Lattivra Explorer** — a future read-only browser for discovering, searching, and navigating ordinary OKF artifacts across multiple local bundles; standalone UI development is deferred.
 - **Lattivra Engineering Profile for OKF** — minimal Markdown conventions for `Specification`, `Decision`, and `Implementation Plan` documents.
 
 ## Current status
 
 The repository foundation includes the bootstrap Engineering Profile, project specifications, decision records D-001 through D-011, and the M0 compatibility plan. These documents form an OKF v0.3 bundle and use the profile to document Lattivra itself.
 
-M0 now includes synthetic independent fixture bundles and a read-only parsing/conformance harness, with local commands and GitHub Actions checks. Indexing, search, and candidate-tool evaluations remain upcoming. Explorer platform and indexing engine selection remain deferred until compatibility evidence is available.
+M0 includes synthetic independent fixture bundles and a read-only parsing/conformance harness, with local commands and GitHub Actions checks. The Open Knowledge Catalog indexing evaluation remains active. UI framework evaluation and standalone Explorer UI construction are deferred until Battalion can support building the UI. Indexing-engine selection remains dependent on compatibility evidence.
 
-The Explorer must remain useful without the Engineering Profile; the profile must be usable without the Explorer. Neither component depends on Battalion. The planned initial Explorer will read registered source files without modifying them and build disposable indexes. Native Markdown may be authoritative; a Markdown projection may derive from an authoritative upstream record.
+The Explorer must remain useful without the Engineering Profile; the profile must be usable without the Explorer. Neither component depends on Battalion. Battalion is an anticipated primary producer and consumer of conforming engineering artifacts, not the owner of the format. The profile and OKF compatibility tooling provide value without a standalone UI. The planned Explorer will read registered source files without modifying them and build disposable indexes. Native Markdown may be authoritative; a Markdown projection may derive from an authoritative upstream record.
 
 ## Documentation
 

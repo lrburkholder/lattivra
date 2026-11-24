@@ -7,7 +7,7 @@ tags: [m0, proof-of-concept, validation]
 
 # Objective
 
-Establish a verified technical baseline for parsing, indexing, searching, and navigating OKF v0.3 artifacts across separate bundles. Select a backend only after evidence from the fixture corpus. Do not start Explorer UI implementation before the POC.
+Establish a verified technical baseline for reading and validating OKF v0.3 across separate bundles, and evaluate candidate indexing/search capabilities through reproducible fixture evidence. Record a backend recommendation without forcing selection when evidence is insufficient. **A standalone Explorer UI and its framework evaluation are outside M0** under [D-003](../decisions/d003-explorer-platform.md). The Engineering Profile is independently useful, including as a format Battalion can produce or consume.
 
 # Tasks
 
@@ -19,7 +19,11 @@ Establish a verified technical baseline for parsing, indexing, searching, and na
 4. **Validate artifacts:** Apply [D-009](../decisions/d009-validation-policy.md): separate OKF conformance, explicitly selected profile conformance, version-compatibility warnings, reference diagnostics, and configuration/access diagnostics. Run profile checks both selected and not selected. An unknown `type` must remain valid OKF. Dynamic third-party profile loading is deferred under [D-010](../decisions/d010-external-profile-support.md).
 5. **Evaluate Open Knowledge Catalog:** Test v0.3 parsing, source scanning, search, backlinks, path semantics, unknown fields, robustness, incremental refresh, and clean rebuilds. Add, edit, and delete fixture artifacts between read-only runs, then compare refreshed and rebuilt results using the same registration configuration. Document gaps, patches, maintenance risk, and license.
 6. **Evaluate minimal alternatives:** Compare a small independent indexer and relevant existing OKF parsers against the observed gaps, not against assumptions.
-7. **Record decisions:** Revisit [D-004](../decisions/d004-indexing-engine.md) after the POC results are available; revisit [D-003](../decisions/d003-explorer-platform.md) when compatibility evidence and learning objectives can inform platform selection.
+7. **Record findings and decisions:** Update [D-004](../decisions/d004-indexing-engine.md) with the indexing POC evidence, whether the result is reuse, adaptation, replacement, or continued deferral. Preserve [D-003](../decisions/d003-explorer-platform.md)'s UI/platform deferral until Battalion can support building the UI. Summarize how the Engineering Profile and compatibility tooling can be used independently, including future Battalion producer/consumer interoperability; no Battalion runtime integration is required in M0.
+
+## Scope boundary
+
+[GitHub milestone M0](https://github.com/lrburkholder/lattivra/milestone/1) and [issue #7](https://github.com/lrburkholder/lattivra/issues/7) govern completion. [Issue #6](https://github.com/lrburkholder/lattivra/issues/6) was closed as not planned: Atteniv evaluation, UI framework selection, and standalone Explorer UI construction are not M0 dependencies. The indexing/search checks below are **candidate-backend evaluation criteria**, not an obligation to ship an Explorer application during M0.
 
 # Verification
 
@@ -64,4 +68,4 @@ Record each fixture's expected and actual result independently for OKF conforman
 
 # Exit Criteria
 
-A working, repeatable POC reads two independent OKF v0.3 fixture bundles without mutating source files and documents results for every verification case above. Expected/actual fixture outcomes and refresh/rebuild evidence must be sufficient to select or reject the preferred indexing backend, with any remaining incompatibilities explicit in that decision.
+A repeatable POC reads two independent OKF v0.3 fixture bundles without modifying source files and reports actual format, profile, reference, and registration outcomes. Candidate-indexer evaluation records observed search, refresh, rebuild, and backlink capabilities (including unsupported features), tested revisions, and reproducible commands. M0 publishes the recommendation or a reasoned continued deferral in D-004, records remaining gaps, and identifies follow-on format/Battalion interoperability work. **No standalone UI, Atteniv evaluation, or final platform selection is required to exit M0.**
